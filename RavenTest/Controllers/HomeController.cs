@@ -42,7 +42,18 @@ namespace RavenTest.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            using (var store = new DocumentStore
+            {
+                Url = "http://localhost:8451/",
+                DefaultDatabase = "Habit"
+            }.Initialize())
+            {
+                using (var session = store.OpenSession())
+                {
+                    var person = session.Load<PersonModel>("PersonModels/33");
+                    ViewBag.Message = person.Name + " " + person.Age;                
+                }
+            }
 
             return View();
         }
