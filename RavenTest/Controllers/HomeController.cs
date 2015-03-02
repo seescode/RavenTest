@@ -15,7 +15,7 @@ namespace RavenTest.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult CreateDocument()
         {
             ViewBag.Message = "Creating Document";
 
