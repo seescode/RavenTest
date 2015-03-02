@@ -40,7 +40,7 @@ namespace RavenTest.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult ReadDocument()
         {
             using (var store = new DocumentStore
             {
