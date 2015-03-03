@@ -67,5 +67,33 @@ namespace RavenTest.Controllers
 
             return View();
         }
+
+        public ActionResult UpdateDocument(string id)
+        {
+            if (id == null)
+            {
+                id = "1";
+            }
+
+            using (var store = new DocumentStore
+            {
+                Url = "http://localhost:8451/",
+                DefaultDatabase = "Habit"
+            }.Initialize())
+            {
+                using (var session = store.OpenSession())
+                {
+                    var person = session.Load<PersonModel>("PersonModels/" + id);
+
+                    person.Name += "1";
+
+                    session.SaveChanges();
+                    ViewBag.Message = person.Name + " " + person.Age;
+                }
+            }
+
+            return View("ReadDocument");
+        }
+
     }
 }
