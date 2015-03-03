@@ -27,10 +27,15 @@ namespace RavenTest.Controllers
             {
                 using (var session = store.OpenSession())
                 {
+                    var hands = new List<Hand>();
+                    hands.Add(new Hand { Position = "left" });
+                    hands.Add(new Hand { Position = "right" });
+
                     session.Store(new PersonModel
                     {
                         Age = 1,
-                        Name = "Hikaru"
+                        Name = "Hikaru",
+                        Hands = hands
                     });
 
                     session.SaveChanges();

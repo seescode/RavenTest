@@ -9,6 +9,6 @@ namespace RavenTest.Models
     {
         public string Name { get; set; }
         public int Age { get; set; }
-
+        public List<Hand> Hands { get; set; }
     }
 }
