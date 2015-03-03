@@ -45,8 +45,13 @@ namespace RavenTest.Controllers
             return View();
         }
 
-        public ActionResult ReadDocument()
+        public ActionResult ReadDocument(string id)
         {
+            if (id == null)
+            {
+                id = "1";
+            }
+
             using (var store = new DocumentStore
             {
                 Url = "http://localhost:8451/",
@@ -55,7 +60,7 @@ namespace RavenTest.Controllers
             {
                 using (var session = store.OpenSession())
                 {
-                    var person = session.Load<PersonModel>("PersonModels/33");
+                    var person = session.Load<PersonModel>("PersonModels/" + id);
                     ViewBag.Message = person.Name + " " + person.Age;                
                 }
             }
