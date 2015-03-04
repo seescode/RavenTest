@@ -12,6 +12,25 @@ namespace RavenTest.Controllers
     {
         public ActionResult Index()
         {
+            using (var store = new DocumentStore
+            {
+                Url = "http://localhost:8451/",
+                DefaultDatabase = "Habit"
+            }.Initialize())
+            {
+                using (var session = store.OpenSession())
+                {
+                    var persons = from i in session.Query<PersonModel>()
+                                  //where i.Name == "Sachi"
+                                  select i;
+
+                    foreach (var i in persons)
+                    {
+                        ViewBag.Message += i.Name + ", ";
+                    }
+                }
+            }
+
             return View();
         }
 
@@ -61,7 +80,7 @@ namespace RavenTest.Controllers
                 using (var session = store.OpenSession())
                 {
                     var person = session.Load<PersonModel>("PersonModels/" + id);
-                    ViewBag.Message = person.Name + " " + person.Age;                
+                    ViewBag.Message = person.Name + " " + person.Age;
                 }
             }
 
